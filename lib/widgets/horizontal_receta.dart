@@ -43,7 +43,7 @@ class _HorizontalRecetaState extends State<HorizontalReceta> {
   UsuarioService _usuarioService = UsuarioService();
 
   _mostrarBoton() {
-    if (!widget.receta.esMia) {
+   // if (!widget.receta.esMia) {
       if (cantidad != 0) {
         return Column(
           children: <Widget>[
@@ -104,9 +104,9 @@ class _HorizontalRecetaState extends State<HorizontalReceta> {
           ],
         );
       }
-    } else {
-      return Container();
-    }
+    //} else {
+    //  return Container();
+    //}
   }
 
   @override

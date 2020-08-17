@@ -234,6 +234,42 @@ class _FiltrosScreenState extends State<FiltrosScreen> {
                             print(_filtrosActuales.toQuery());
                           },
                         ),
+                        SizedBox(height: 15,),
+                        FlatButton(
+                          onPressed: () async {
+                            Filtro actuales = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    BusquedaScreen(filtro: _filtrosActuales),
+                              ),
+                            );
+
+                            setState(() {
+                              if (actuales != null) {
+                                _filtrosActuales = actuales;
+                              }
+                            });
+                          },
+                          color: Theme.of(context).primaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Container(
+                            width: double.infinity,
+                            child: Center(
+                              child: Text(
+                                'Buscar',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

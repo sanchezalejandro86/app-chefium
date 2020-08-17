@@ -114,9 +114,9 @@ class _RecetaScreenState extends State<RecetaScreen> {
   }
 
   _mostrarLikes() {
-    if (_recetaCompleta.esMia) {
-      return Container();
-    } else {
+  //  if (_recetaCompleta.esMia) {
+  //    return Container();
+  //  } else {
       if (_cantidad != 0) {
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -179,7 +179,7 @@ class _RecetaScreenState extends State<RecetaScreen> {
           ],
         );
       }
-    }
+    //}
   }
 
   Future<Receta> _getRecetaCompleta() async {

@@ -33,9 +33,9 @@ class _SquareRecetaState extends State<SquareReceta> {
   }
 
   _mostrarLikes() {
-    if (widget.receta.esMia) {
-      return Container();
-    } else {
+  //  if (widget.receta.esMia) {
+  //    return Container();
+  //  } else {
       if (cantidad != 0) {
         return Column(
           children: <Widget>[
@@ -96,7 +96,7 @@ class _SquareRecetaState extends State<SquareReceta> {
           ],
         );
       }
-    }
+   // }
   }
 
   @override
