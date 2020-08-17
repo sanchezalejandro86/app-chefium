@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1045930191756",
+    "firebase_url": "https://recetas-b2439.firebaseio.com",
+    "project_id": "recetas-b2439",
+    "storage_bucket": "recetas-b2439.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045930191756:android:375e8d48b0eb0adf6444a9",
+        "android_client_info": {
+          "package_name": "ar.chefium"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045930191756-avi6p33iokg8oo0q8161e0j0414trmf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEtJU4ZjIIacm4dnGVwQcJnC0lsFbTUEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045930191756-avi6p33iokg8oo0q8161e0j0414trmf8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1045930191756-bau141n9ns76bbc78ksihi65tiu94lhn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ar.chefium"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
