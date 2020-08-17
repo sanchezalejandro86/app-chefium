@@ -69,6 +69,7 @@ class _BusquedaScreenState extends State<BusquedaScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () async {
+            widget.filtro.soloSeguidos = false;
             Navigator.pop(context, widget.filtro);
           },
           icon: Icon(
@@ -79,6 +80,7 @@ class _BusquedaScreenState extends State<BusquedaScreen> {
         title: TextField(
           controller: TextEditingController(text: widget.filtro.busqueda),
           onTap: () {
+            widget.filtro.soloSeguidos = false;
             Navigator.pop(context, widget.filtro);
           },
           readOnly: true,

@@ -12,6 +12,7 @@ class Filtro {
   List<Dieta> dietas;
   List<String> ordenCampo;
   List<bool> ordenAscendente;
+  bool soloSeguidos;
 
   Filtro(
       {this.ingredientes,
@@ -65,11 +66,16 @@ class Filtro {
     String dietas = '';
     String ordenar = '';
     String ingredientes = '';
+    String soloSeguidos = '';
 
     Map<String, dynamic> query;
 
     if (this.busqueda != null && this.busqueda.isNotEmpty) {
       busqueda = this.busqueda;
+    }
+
+    if (this.soloSeguidos != null && this.soloSeguidos) {
+      soloSeguidos = 'true';
     }
 
     if (this.ingredientes != null && this.ingredientes.isNotEmpty) {
@@ -124,6 +130,7 @@ class Filtro {
       'origenes': origenes,
       'ingredientes': ingredientes,
       'categorias': categorias,
+      'soloSeguidos': soloSeguidos,
       'ordenar': ordenar
     };
 
