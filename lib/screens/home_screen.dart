@@ -28,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const int cantidadFavoritas = 3;
+  static const int cantidadFavoritas = 5;
   static const int cantidadRecientes = 5;
   static const int itemsPorQuery = 6;
 
@@ -46,16 +46,22 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Receta> _favoritas;
   List<Receta> _recetas;
 
-  Future<List<Receta>> _getRecetasRecientes() async {
+  Future<List<Receta>> _getRecetasRecientes(int pagina) async {
     try {
       Map<String, dynamic> query = {
         'ordenar': '-creacion',
-        "limite": cantidadRecientes
+        "limite": cantidadRecientes,
+        "pagina": pagina,
       };
       Paginacion paginacion = await _recetaService.obtenerBusqueda(query);
       List<Receta> nuevasRecetas = Receta.fromJsonList(paginacion.docs);
       setState(() {
-        _recientes = nuevasRecetas;
+        if (pagina == 1) {
+          _recientes = [];
+        }
+        _recientes += nuevasRecetas;
+        _tieneSiguiente = paginacion.tieneSiguiente;
+        _pagina = pagina + 1;
       });
       return nuevasRecetas;
     } catch (e) {
@@ -110,15 +116,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _recientesFuture = _getRecetasRecientes();
+    _recientesFuture = _getRecetasRecientes(_pagina);
     _favoritasFuture = _getRecetasFavoritas();
-    _recetasFuture = _getRecetas(_pagina);
+  //  _recetasFuture = _getRecetas(_pagina);
   }
 
   Future<void> _onRefresh() async {
-    await _getRecetasRecientes();
+    await _getRecetasRecientes(1);
     await _getRecetasFavoritas();
-    await _getRecetas(1);
+  //  await _getRecetas(1);
   }
 
   @override
@@ -290,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           Container(height: 20),
-          Padding(
+          /*Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: <Widget>[
@@ -386,8 +392,55 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
             ),
-          ),
+          ),*/
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Más recientes',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                  ),
+                 ],
+              )),
           FutureBuilder(
+            future: _recientesFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text("Error"),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  if (_recientes.length > 0) {
+                    return InfiniteListView<Receta>(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      areItemsTheSame: (a, b) => a.id == b.id,
+                      items: _recientes,
+                      shrinkWrap: true,
+                      scrollController: _scrollController,
+                      physics: ScrollPhysics(),
+                      hasMore: _tieneSiguiente,
+                      getMoreItems: () => _getRecetasRecientes(_pagina),
+                      onRefresh: () => _onRefresh(),
+                      loadingBuilder: (context) => CargandoIndicator(),
+                      itemBuilder: (context, receta, i) => HorizontalReceta(
+                        receta: receta,
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return CargandoIndicator();
+                }
+              }
+            },
+          ),
+/*          FutureBuilder(
             future: _recetasFuture,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
@@ -434,7 +487,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               }
             },
-          ),
+          ),*/
         ],
       ),
     );

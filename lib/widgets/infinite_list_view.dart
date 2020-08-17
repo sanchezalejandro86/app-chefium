@@ -169,7 +169,7 @@ class _InfiniteListViewState<E> extends State<InfiniteListView<E>>
             : ScrollPhysics(),
         shrinkWrap: widget.scrollController != null,
         padding: widget.padding,
-        itemBuilder: (context, i) => SafeArea(
+        itemBuilder: (context, i) => Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

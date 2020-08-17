@@ -3,9 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DioClient {
   static Dio _dio = Dio(BaseOptions(
-    //baseUrl: 'https://api-chefium.herokuapp.com/v1',
+    baseUrl: 'https://api-chefium.herokuapp.com/v1',
     //baseUrl: 'http://192.168.5.108:3000/v1',
-    baseUrl: 'http://192.168.1.19:3000/v1',
+    //baseUrl: 'http://192.168.1.19:3000/v1',
   ));
   static Dio get initDio => _dio;
   static Dio get authDio => _dio..interceptors.add(AppInterceptors());
