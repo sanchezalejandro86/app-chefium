@@ -415,7 +415,7 @@ class _RecetaScreenState extends State<RecetaScreen> {
                           Container(height: 10),
                           Row(
                             children: <Widget>[
-                              Expanded(
+                              /*Expanded(
                                 child: Column(
                                   children: <Widget>[
                                     Text(
@@ -440,7 +440,7 @@ class _RecetaScreenState extends State<RecetaScreen> {
                                 color: Color(0xFFf2f5f7),
                                 thickness: 1,
                                 width: 4,
-                              ),
+                              ),*/
                               Expanded(
                                 child: Column(
                                   children: <Widget>[
@@ -490,33 +490,6 @@ class _RecetaScreenState extends State<RecetaScreen> {
                           ),
                           Container(height: 10),
                           Divider(),
-                          InkWell(
-                            onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ComentariosScreen(
-                                    receta: _recetaCompleta,
-                                  ),
-                                ),
-                              );
-                              await _onRefresh();
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    'Ver comentarios',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                           _recetaCompleta.dietas != null &&
                                   _recetaCompleta.dietas.isNotEmpty
                               ? Column(
@@ -727,6 +700,43 @@ class _RecetaScreenState extends State<RecetaScreen> {
                                               ],
                                             )
                                           : Container(),
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ComentariosScreen(
+                                                receta: _recetaCompleta,
+                                              ),
+                                            ),
+                                          );
+                                          await _onRefresh();
+                                        },
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                              padding: EdgeInsets.symmetric(vertical: 10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  Text(
+                                                    'Comentarios (' +
+                                                        (_recetaCompleta.comentarios?.length?.toString() ?? "0") +
+                                                        ")",
+                                                    style:
+                                                    Theme.of(context).textTheme.headline6,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Text("Agrega un comentario...",
+                                                style:
+                                                Theme.of(context).textTheme.bodyText1)
+                                          ]
+                                        )
+                                      ),
+                                      Divider(),
                                     ],
                                   );
                                 } else {

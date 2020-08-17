@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.25,
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               image: DecorationImage(
@@ -141,8 +141,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: SafeArea(
               child: Container(
-                padding:
-                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

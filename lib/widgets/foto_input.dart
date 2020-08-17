@@ -134,7 +134,7 @@ class _FotoInputState extends State<FotoInput> {
           color: Color(0xFFD8D8D8),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: _imagen != null || widget.inicialUrl != null
+        child: _imagen != null || (widget.inicialUrl != null && widget.inicialUrl.isNotEmpty)
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: _imagen != null
