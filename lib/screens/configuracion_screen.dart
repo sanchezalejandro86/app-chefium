@@ -489,6 +489,16 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                       ));
                 },
               ),
+              Divider(
+                height: 1,
+              ),
+              ListTile(
+                title: Text(
+                  'Versión: 1.0.0',
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                      fontWeight: FontWeight.w400, color: MainTheme.gris),
+                ),
+              ),
             ],
           ),
         ),

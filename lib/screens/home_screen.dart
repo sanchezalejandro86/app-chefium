@@ -146,14 +146,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "Cociná con lo que tenés",
+                      "Cocina con lo que tienes",
                       style: Theme.of(context)
                           .textTheme
                           .headline1
                           .copyWith(color: MainTheme.amarilloChefium),
                     ),
                     Text(
-                      "Buscá la receta ideal para tus ingredientes",
+                      "Busca la receta ideal para tus ingredientes",
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                           color: MainTheme.amarilloChefium,
                           fontWeight: FontWeight.w400),
@@ -290,54 +290,6 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           Container(height: 20),
-          /*          FutureBuilder(
-            future: _recetasFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("Error"),
-                );
-              } else {
-                if (snapshot.hasData) {
-                  if (_recetas.length > 0) {
-                    return InfiniteListView<Receta>(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                      header: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'Personas que sigues',
-                                style: Theme.of(context).textTheme.headline4,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      areItemsTheSame: (a, b) => a.id == b.id,
-                      items: _recetas,
-                      shrinkWrap: true,
-                      scrollController: _scrollController,
-                      physics: ScrollPhysics(),
-                      hasMore: _tieneSiguiente,
-                      getMoreItems: () => _getRecetas(_pagina),
-                      onRefresh: () => _onRefresh(),
-                      loadingBuilder: (context) => CargandoIndicator(),
-                      itemBuilder: (context, receta, i) => HorizontalReceta(
-                        receta: receta,
-                      ),
-                    );
-                  } else {
-                    return Container();
-                  }
-                } else {
-                  return CargandoIndicator();
-                }
-              }
-            },
-          ),*/
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
