@@ -11,6 +11,7 @@ import 'package:chefium/themes/theme.dart';
 import 'package:chefium/widgets/cargando_indicator.dart';
 import 'package:chefium/widgets/horizontal_receta.dart';
 import 'package:chefium/widgets/infinite_list_view.dart';
+import 'package:chefium/widgets/pull_to_refresh.dart';
 import 'package:chefium/widgets/recetas_vacio.dart';
 import 'package:chefium/widgets/square_receta.dart';
 import 'package:firebase_admob/firebase_admob.dart';
@@ -123,297 +124,302 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      controller: _scrollController,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.25,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              image: DecorationImage(
-                image: AssetImage('lib/assets/images/home.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: SafeArea(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Cocina con lo que tienes",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1
-                          .copyWith(color: MainTheme.amarilloChefium),
-                    ),
-                    Text(
-                      "Busca la receta ideal para tus ingredientes",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: MainTheme.amarilloChefium,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Container(height: 20),
-                    FlatButton(
-                      child: Text(
-                        'Ver más',
-                        style: Theme.of(context)
-                            .textTheme
-                            .button
-                            .copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      padding: EdgeInsets.fromLTRB(27, 6, 27, 6),
-                      color: Theme.of(context).accentColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      onPressed: () async {
-                        Usuario usuario =
-                            await _usuarioService.obtenerUsuarioLocal();
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                MainScreen(tabInicial: 2, usuario: usuario),
+    return PullToRefresh(
+        onRefresh: () => _onRefresh(),
+        child:
+
+        SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          controller: _scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.25,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  image: DecorationImage(
+                    image: AssetImage('lib/assets/images/home.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: SafeArea(
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Cocina con lo que tienes",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1
+                              .copyWith(color: MainTheme.amarilloChefium),
+                        ),
+                        Text(
+                          "Busca la receta ideal para tus ingredientes",
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: MainTheme.amarilloChefium,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        Container(height: 20),
+                        FlatButton(
+                          child: Text(
+                            'Ver más',
+                            style: Theme.of(context)
+                                .textTheme
+                                .button
+                                .copyWith(fontWeight: FontWeight.w700),
                           ),
-                        );
-                      },
+                          padding: EdgeInsets.fromLTRB(27, 6, 27, 6),
+                          color: Theme.of(context).accentColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          onPressed: () async {
+                            Usuario usuario =
+                            await _usuarioService.obtenerUsuarioLocal();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MainScreen(tabInicial: 2, usuario: usuario),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          Container(height: 30),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'Preferidas de la gente',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      Usuario usuario =
+              Container(height: 30),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          'Preferidas de la gente',
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          Usuario usuario =
                           await _usuarioService.obtenerUsuarioLocal();
 
-                      Filtro filtro = Filtro.empty();
-                      filtro.ordenCampo = ["numeroFavoritos"];
-                      filtro.ordenAscendente = [false];
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MainScreen(
-                              filtro: filtro, tabInicial: 2, usuario: usuario),
-                        ),
-                      );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BusquedaScreen(filtro: filtro),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Ver todos',
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-                  ),
-                ],
-              )),
-          FutureBuilder(
-            future: _favoritasFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("Error"),
-                );
-              } else {
-                if (snapshot.hasData) {
-                  if (_favoritas.length > 0) {
-                    return Container(
-                      height: 241,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        itemCount:
-                            _favoritas.length > 5 ? 5 : snapshot.data.length,
-                        itemBuilder: (BuildContext context, int i) {
-                          Receta receta = snapshot.data[i];
-                          return SquareReceta(receta: receta);
-                        },
-                      ),
-                    );
-                  } else {
-                    return RecetasVacio(
-                      mensaje:
-                          "Aún no hay recetas creadas, ¿qué te parece crear una?",
-                      action: RaisedButton(
-                        child: Text("Crear receta"),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        onPressed: () async {
-                          Usuario usuario =
-                              await _usuarioService.obtenerUsuarioLocal();
+                          Filtro filtro = Filtro.empty();
+                          filtro.ordenCampo = ["numeroFavoritos"];
+                          filtro.ordenAscendente = [false];
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  MainScreen(tabInicial: 1, usuario: usuario),
+                              builder: (context) => MainScreen(
+                                  filtro: filtro, tabInicial: 2, usuario: usuario),
+                            ),
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BusquedaScreen(filtro: filtro),
                             ),
                           );
                         },
-                        textColor: Colors.white,
-                        elevation: 0,
-                        disabledElevation: 0,
-                        focusElevation: 0,
-                        highlightElevation: 0,
-                        hoverElevation: 0,
-                        color: Theme.of(context).primaryColor,
+                        child: Text(
+                          'Ver todos',
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
                       ),
+                    ],
+                  )),
+              FutureBuilder(
+                future: _favoritasFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Error"),
                     );
-                  }
-                } else {
-                  return CargandoIndicator(padding: EdgeInsets.all(30));
-                }
-              }
-            },
-          ),
-          Container(height: 20),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'Personas que sigues',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      Usuario usuario =
-                          await _usuarioService.obtenerUsuarioLocal();
-                      Filtro filtro = Filtro.empty();
-                      filtro.ordenCampo = ["creacion"];
-                      filtro.ordenAscendente = [false];
-                      filtro.soloSeguidos = true;
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MainScreen(
-                              filtro: filtro, tabInicial: 2, usuario: usuario),
-                        ),
-                      );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BusquedaScreen(filtro: filtro),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Ver todos',
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-                  ),
-                ],
-              )),
-          Container(
-            height: _recetas != null && _recetas.length > 0 ? 241 : 291,
-            child: FutureBuilder(
-              future: _recetasFuture,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text("Error"),
-                  );
-                } else {
-                  if (snapshot.hasData) {
-                    if (_recetas.length > 0) {
-                      return ListView.builder(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int i) {
-                          Receta receta = snapshot.data[i];
-                          return SquareReceta(receta: receta);
-                        },
-                      );
-                    }else{
-                      return RecetasVacio(
-                        mensaje:
-                        "Comienza a seguir a tus chef favoritos para ver sus últimas recetas!",
-                      );
+                  } else {
+                    if (snapshot.hasData) {
+                      if (_favoritas.length > 0) {
+                        return Container(
+                          height: 241,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: ScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            itemCount:
+                            _favoritas.length > 5 ? 5 : snapshot.data.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              Receta receta = snapshot.data[i];
+                              return SquareReceta(receta: receta);
+                            },
+                          ),
+                        );
+                      } else {
+                        return RecetasVacio(
+                          mensaje:
+                          "Aún no hay recetas creadas, ¿qué te parece crear una?",
+                          action: RaisedButton(
+                            child: Text("Crear receta"),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            onPressed: () async {
+                              Usuario usuario =
+                              await _usuarioService.obtenerUsuarioLocal();
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      MainScreen(tabInicial: 1, usuario: usuario),
+                                ),
+                              );
+                            },
+                            textColor: Colors.white,
+                            elevation: 0,
+                            disabledElevation: 0,
+                            focusElevation: 0,
+                            highlightElevation: 0,
+                            hoverElevation: 0,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        );
+                      }
+                    } else {
+                      return CargandoIndicator(padding: EdgeInsets.all(30));
                     }
-                  } else {
-                    return CargandoIndicator(padding: EdgeInsets.all(30));
                   }
-                }
-              },
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'Más recientes',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                  ),
-                 ],
-              )),
-          FutureBuilder(
-            future: _recientesFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("Error"),
-                );
-              } else {
-                if (snapshot.hasData) {
-                  if (_recientes.length > 0) {
-                    return InfiniteListView<Receta>(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                      areItemsTheSame: (a, b) => a.id == b.id,
-                      items: _recientes,
-                      shrinkWrap: true,
-                      scrollController: _scrollController,
-                      physics: ScrollPhysics(),
-                      hasMore: _tieneSiguiente,
-                      getMoreItems: () => _getRecetasRecientes(_pagina),
-                      onRefresh: () => _onRefresh(),
-                      loadingBuilder: (context) => CargandoIndicator(),
-                      itemBuilder: (context, receta, i) => HorizontalReceta(
-                        receta: receta,
+                },
+              ),
+              Container(height: 20),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          'Personas que sigues',
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
                       ),
+                      GestureDetector(
+                        onTap: () async {
+                          Usuario usuario =
+                          await _usuarioService.obtenerUsuarioLocal();
+                          Filtro filtro = Filtro.empty();
+                          filtro.ordenCampo = ["creacion"];
+                          filtro.ordenAscendente = [false];
+                          filtro.soloSeguidos = true;
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MainScreen(
+                                  filtro: filtro, tabInicial: 2, usuario: usuario),
+                            ),
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BusquedaScreen(filtro: filtro),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Ver todos',
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
+                    ],
+                  )),
+              Container(
+                height: _recetas != null && _recetas.length > 0 ? 241 : 291,
+                child: FutureBuilder(
+                  future: _recetasFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text("Error"),
+                      );
+                    } else {
+                      if (snapshot.hasData) {
+                        if (_recetas.length > 0) {
+                          return ListView.builder(
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              Receta receta = snapshot.data[i];
+                              return SquareReceta(receta: receta);
+                            },
+                          );
+                        }else{
+                          return RecetasVacio(
+                            mensaje:
+                            "Comienza a seguir a tus chef favoritos para ver sus últimas recetas!",
+                          );
+                        }
+                      } else {
+                        return CargandoIndicator(padding: EdgeInsets.all(30));
+                      }
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          'Más recientes',
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                      ),
+                    ],
+                  )),
+              FutureBuilder(
+                future: _recientesFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Error"),
                     );
                   } else {
-                    return Container();
+                    if (snapshot.hasData) {
+                      if (_recientes.length > 0) {
+                        return InfiniteListView<Receta>(
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                          areItemsTheSame: (a, b) => a.id == b.id,
+                          items: _recientes,
+                          shrinkWrap: true,
+                          scrollController: _scrollController,
+                          physics: ScrollPhysics(),
+                          hasMore: _tieneSiguiente,
+                          getMoreItems: () => _getRecetasRecientes(_pagina),
+                          onRefresh: () => _onRefresh(),
+                          loadingBuilder: (context) => CargandoIndicator(),
+                          itemBuilder: (context, receta, i) => HorizontalReceta(
+                            receta: receta,
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    } else {
+                      return CargandoIndicator();
+                    }
                   }
-                } else {
-                  return CargandoIndicator();
-                }
-              }
-            },
+                },
+              ),
+            ],
           ),
-        ],
-      ),
+        )
     );
   }
 }
