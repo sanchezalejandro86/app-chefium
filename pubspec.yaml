@@ -28,6 +28,7 @@ dependencies:
   flutter_facebook_login: ^3.0.0
   apple_sign_in: ^0.1.0
   dio: ^3.0.9
+  dio_http_cache: ^0.2.6
   firebase_admob: ^0.9.3+2
   firebase_analytics: ^5.0.15
   google_sign_in: ^4.5.1

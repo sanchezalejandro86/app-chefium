@@ -84,7 +84,7 @@ class _RecetaScreenState extends State<RecetaScreen> {
     FirebaseAdMob.instance.initialize(appId: _admobAppID);
     _showAd();
     _recetaCompleta = widget.receta;
-    _recetaCompleta.categorias = [];
+  //  _recetaCompleta.categorias = [];
     _estado = _recetaCompleta.esFavorita;
     _cantidad = _recetaCompleta.numerofavoritos;
     _recetaCompletaFuture = _getRecetaCompleta();
@@ -417,32 +417,6 @@ class _RecetaScreenState extends State<RecetaScreen> {
                           Container(height: 10),
                           Row(
                             children: <Widget>[
-                              /*Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Text(
-                                      _recetaCompleta.comentarios?.length
-                                              ?.toString() ??
-                                          "0",
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
-                                    ),
-                                    Text(
-                                      "comentarios",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .copyWith(
-                                              fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              VerticalDivider(
-                                color: Color(0xFFf2f5f7),
-                                thickness: 1,
-                                width: 4,
-                              ),*/
                               Expanded(
                                 child: Column(
                                   children: <Widget>[
@@ -491,7 +465,6 @@ class _RecetaScreenState extends State<RecetaScreen> {
                             ],
                           ),
                           Container(height: 10),
-                          Divider(),
                           _recetaCompleta.dietas != null &&
                                   _recetaCompleta.dietas.isNotEmpty
                               ? Column(

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioClient {
@@ -9,7 +10,8 @@ class DioClient {
     baseUrl: 'http://192.168.1.19:3000/v1',          //ale
   ));
   static Dio get initDio => _dio;
-  static Dio get authDio => _dio..interceptors.add(AppInterceptors());
+  static Dio get authDio =>  _dio..interceptors.add(AppInterceptors());
+  static Dio get cacheDio => authDio..interceptors.add(DioCacheManager(CacheConfig()).interceptor);
 }
 
 class AppInterceptors extends Interceptor {
