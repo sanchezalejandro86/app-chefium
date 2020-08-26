@@ -24,20 +24,26 @@ class Categoria{
     this.creadoPor = null;
   }
 
-  factory Categoria.fromJson(Map<String,dynamic> json){
+  factory Categoria.fromJson(dynamic json){
     if(json == null){
       return Categoria.empty();
     }
-    return Categoria(
-      id: json['_id'],
-      descripcion: json['descripcion'],
-      creacion: json['creacion'] != null
-            ? DateTime.parse(json['creacion'])
-            : null,
-      actualizacion: json['actualizacion'] != null ? DateTime.parse(json['actualizacion']) : null,
-      creadoPor: json['creadoPor'],
-      actualizadoPor: json['actualizadoPor'],
-    );
+    if (json is Map) {
+      return Categoria(
+        id: json['_id'],
+        descripcion: json['descripcion'],
+        creacion: json['creacion'] != null
+              ? DateTime.parse(json['creacion'])
+              : null,
+        actualizacion: json['actualizacion'] != null ? DateTime.parse(json['actualizacion']) : null,
+        creadoPor: json['creadoPor'],
+        actualizadoPor: json['actualizadoPor'],
+      );
+    } else {
+      return Categoria(
+        id: json,
+      );
+    }
   }
 
   static List<Categoria>fromJsonList(dynamic json){

@@ -27,7 +27,7 @@ class BusquedaScreen extends StatefulWidget {
 class _BusquedaScreenState extends State<BusquedaScreen> {
   static const int anunciosCada = 3;
   static const int itemsPorQuery = 6;
-  static const _nativeAdUnitID = "ca-app-pub-3940256099942544/2247696110";
+  static const _nativeAdUnitID = "ca-app-pub-2156723921552024/8509289720";
 
   RecetaService _recetaService = RecetaService();
   int _pagina = 1;

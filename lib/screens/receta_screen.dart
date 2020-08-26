@@ -42,8 +42,8 @@ class RecetaScreen extends StatefulWidget {
 }
 
 class _RecetaScreenState extends State<RecetaScreen> {
-  static const _admobAppID = "ca-app-pub-3970248402296752~1474737424";
-  static const _nativeAdUnitID = "ca-app-pub-3940256099942544/2247696110";
+  static const _admobAppID = "ca-app-pub-2156723921552024~4299432036";
+  static const _nativeAdUnitID = "ca-app-pub-2156723921552024/9275576483";
   static const _admobTestDeviceID = "55AD48A9B5B1B1C3AF5FB4A126D60493";
 
   static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
@@ -69,7 +69,8 @@ class _RecetaScreenState extends State<RecetaScreen> {
 
   InterstitialAd createInterstitialAd() {
     return InterstitialAd(
-      adUnitId: InterstitialAd.testAdUnitId,
+      adUnitId: "ca-app-pub-2156723921552024/8505420293",
+//      adUnitId: InterstitialAd.testAdUnitId,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         print("InterstitialAd event $event");
@@ -83,6 +84,7 @@ class _RecetaScreenState extends State<RecetaScreen> {
     FirebaseAdMob.instance.initialize(appId: _admobAppID);
     _showAd();
     _recetaCompleta = widget.receta;
+    _recetaCompleta.categorias = [];
     _estado = _recetaCompleta.esFavorita;
     _cantidad = _recetaCompleta.numerofavoritos;
     _recetaCompletaFuture = _getRecetaCompleta();
