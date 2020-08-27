@@ -205,6 +205,7 @@ class _CrearRecetaScreenState extends State<CrearRecetaScreen> {
                           _recetaActual.titulo = str;
                         },
                         initialValue: _recetaActual.titulo,
+                        textCapitalization: TextCapitalization.sentences,
                         validator: (valor) {
                           if (valor == null || valor.isEmpty)
                             return "No puede estar vacío";
@@ -225,6 +226,7 @@ class _CrearRecetaScreenState extends State<CrearRecetaScreen> {
                           _recetaActual.descripcion = descripcion;
                         },
                         initialValue: _recetaActual.descripcion,
+                        textCapitalization: TextCapitalization.sentences,
                         maxLines: 3,
                         decoration: InputDecoration(
                           isDense: true,
@@ -343,6 +345,7 @@ class _CrearRecetaScreenState extends State<CrearRecetaScreen> {
                           _recetaActual.tips = tips;
                         },
                         initialValue: _recetaActual.tips,
+                        textCapitalization: TextCapitalization.sentences,
                         maxLines: 3,
                         decoration: InputDecoration(
                           isDense: true,

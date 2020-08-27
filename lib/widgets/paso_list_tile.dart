@@ -78,13 +78,6 @@ class _PasoListTileState extends State<PasoListTile> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(bottom: 10),
-          child: Flex(
-            direction: Axis.horizontal,
-            children: _obtenerImagenes(),
-          ),
-        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -119,6 +112,13 @@ class _PasoListTileState extends State<PasoListTile> {
               ),
             ),
           ],
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Flex(
+            direction: Axis.horizontal,
+            children: _obtenerImagenes(),
+          ),
         ),
       ],
     );

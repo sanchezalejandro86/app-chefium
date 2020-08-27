@@ -675,6 +675,7 @@ class _RecetaScreenState extends State<RecetaScreen> {
                                               ],
                                             )
                                           : Container(),
+                                      Divider(),
                                       InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -711,7 +712,7 @@ class _RecetaScreenState extends State<RecetaScreen> {
                                           ]
                                         )
                                       ),
-                                      Divider(),
+
                                     ],
                                   );
                                 } else {

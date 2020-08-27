@@ -51,6 +51,7 @@ class _ItemPasoState extends State<ItemPaso> {
         TextFormField(
           maxLines: 3,
           controller: _descripcionController,
+          textCapitalization: TextCapitalization.sentences,
           onChanged: (String texto) {
             widget.onChanged(
                 {'descripcion': _descripcionController.text, 'fotos': _fotos});
