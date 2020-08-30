@@ -5,11 +5,13 @@ import 'package:chefium/screens/main_screen.dart';
 import 'package:chefium/services/usuario_service.dart';
 import 'package:chefium/widgets/cargando_dialog.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -171,6 +173,39 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Bienvenido a la cocina fácil y rica',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline1,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: RichText(
+                  text: TextSpan(
+                    style: Theme.of(context).textTheme.bodyText1,
+                    children: [
+                      TextSpan(
+                        text: 'Registrándote aceptas nuestros ',
+                      ),
+                      TextSpan(
+                        text: 'Términos y Condiciones ',
+                        style: TextStyle(decoration: TextDecoration.underline),
+                        recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                               launch('http://chefium.com.ar/terminos');
+                            }
+                      ),
+                      TextSpan(
+                        text: 'y ',
+                      ),
+                      TextSpan(
+                        text: 'Política de Privacidad',
+                        style: TextStyle(decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launch('http://chefium.com.ar/privacidad');
+                            }
+                      ),
+                    ]
+                  ),
+                  textAlign: TextAlign.center
                 ),
               ),
               Padding(

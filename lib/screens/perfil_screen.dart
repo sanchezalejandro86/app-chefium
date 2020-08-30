@@ -89,6 +89,9 @@ class _PerfilScreenState extends State<PerfilScreen> {
   }
 
   _launchURL(String url) async {
+    if(!url.startsWith("http://")){
+      url = "http://" + url;
+    }
     if (await canLaunch(url)) {
       await launch(url);
     } else {

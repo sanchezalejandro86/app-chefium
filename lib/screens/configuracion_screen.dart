@@ -3,6 +3,7 @@ import 'package:chefium/assets/icons/chefium_icons.dart';
 import 'package:chefium/models/usuario.dart';
 import 'package:chefium/screens/informacion_screen.dart';
 import 'package:chefium/widgets/cargando_indicator.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:apple_sign_in/apple_sign_in.dart';
@@ -12,6 +13,7 @@ import 'package:chefium/themes/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConfiguracionScreen extends StatefulWidget {
   final Usuario usuario;
@@ -169,6 +171,18 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
 
   void _onBackPressed() {
     Navigator.pop(context, _usuario);
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      Flushbar(
+        message: "No se puede abrir la URL",
+        duration: Duration(seconds: 5),
+        flushbarStyle: FlushbarStyle.GROUNDED,
+      )..show(context);
+    }
   }
 
   @override
@@ -445,12 +459,13 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                       fontWeight: FontWeight.w400, color: MainTheme.gris),
                 ),
                 onTap: () {
-                  Navigator.push(
+                  /*Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
                             InformacionScreen(tipo: 'Terminos y condiciones'),
-                      ));
+                      ));*/
+                  _launchURL("http://chefium.com.ar/terminos");
                 },
               ),
               Divider(
@@ -463,12 +478,13 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                       fontWeight: FontWeight.w400, color: MainTheme.gris),
                 ),
                 onTap: () {
-                  Navigator.push(
+                  /*Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
                             InformacionScreen(tipo: 'Políticas de privacidad'),
-                      ));
+                      ));*/
+                  _launchURL("http://chefium.com.ar/privacidad");
                 },
               ),
               Divider(
@@ -488,16 +504,6 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                             InformacionScreen(tipo: 'Acerca de Chefium'),
                       ));
                 },
-              ),
-              Divider(
-                height: 1,
-              ),
-              ListTile(
-                title: Text(
-                  'Versión: 1.0.0',
-                  style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontWeight: FontWeight.w400, color: MainTheme.gris),
-                ),
               ),
             ],
           ),

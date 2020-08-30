@@ -5,7 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DioClient {
   static Dio _dio = Dio(BaseOptions(
     //baseUrl: 'https://api-chefium.herokuapp.com/v1', //heroku
-    baseUrl: 'http://54.92.148.138/v1',               //aws
+    //baseUrl: 'http://54.92.148.138/v1',               //aws
+    baseUrl: 'http://api.chefium.com.ar/v1',               //aws
     //baseUrl: 'http://192.168.5.108:3000/v1',         //jorge
     //baseUrl: 'http://192.168.1.19:3000/v1',          //ale
   ));
