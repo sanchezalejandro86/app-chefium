@@ -33,7 +33,7 @@ class _CrearComentarioScreenState extends State<CrearComentarioScreen> {
     super.initState();
     _contenidoController =
         TextEditingController(text: widget.comentario?.contenido ?? '');
-    _imagen = widget.comentario?.foto;
+    _imagen = !widget.comentario?.foto.startsWith("http") ? widget.comentario?.foto : null;
   }
 
   bool _isEnabled() {
