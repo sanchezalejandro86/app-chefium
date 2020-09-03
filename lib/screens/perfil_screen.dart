@@ -466,7 +466,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                                     : SingleChildScrollView(
                                         child: RecetasVacio(
                                           mensaje:
-                                              "Aún no has compartido ninguna receta, ��qué te parece crear una?",
+                                              "Aún no has compartido ninguna receta, qué te parece crear una?",
                                           action: RaisedButton(
                                             child: Text("Crear receta"),
                                             shape: RoundedRectangleBorder(

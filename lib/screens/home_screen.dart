@@ -335,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )),
               Container(
-                height: _recetas != null && _recetas.length > 0 ? 241 : 291,
+                height: _recetas != null && _recetas.length > 0 ? 241 :180,
                 child: FutureBuilder(
                   future: _recetasFuture,
                   builder: (context, snapshot) {
@@ -358,9 +358,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           );
                         }else{
-                          return RecetasVacio(
+                          /*return RecetasVacio(
                             mensaje:
                             "Comienza a seguir a tus chef favoritos para ver sus últimas recetas!",
+                          );*/
+                          return Container(
+                                padding: EdgeInsets.all(30),
+                                child: Column(
+                                children: <Widget>[
+                                  Icon(
+                                    ChefiumIcons.chef,
+                                    size: 40,
+                                    color: Colors.grey,
+                                  ),
+                                  Container(height: 15),
+                                  Text(
+                                  "Comienza a seguir a tus chef favoritos para ver sus últimas recetas!",
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(color: Colors.grey),
+                                  ),
+                                ]
+                            )
                           );
                         }
                       } else {
