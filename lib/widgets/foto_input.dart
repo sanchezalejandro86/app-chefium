@@ -23,7 +23,7 @@ class FotoInput extends StatefulWidget {
     this.inicial,
     this.inicialUrl,
     this.editable = false,
-    this.maxSize = 200,
+    this.maxSize = 600,
     this.iconSize = 30,
   });
 
